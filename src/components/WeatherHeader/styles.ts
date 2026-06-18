@@ -2,7 +2,6 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#4F6EF7',
     paddingTop: 20,
     paddingBottom: 40,
     paddingHorizontal: 16,
@@ -44,7 +43,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   weatherIcon: {
-    fontSize: 60,
+    fontSize: 80,
     marginBottom: 8,
   },
   temperature: {

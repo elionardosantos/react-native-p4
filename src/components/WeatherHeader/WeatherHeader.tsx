@@ -15,9 +15,9 @@ const mockData = {
 export default function WeatherHeader() {
   return (
     <LinearGradient
-      colors={['#7B5EF8', '#4F6EF7']}
-      style={styles.container}
-    >
+       colors={['#1E5BF2', '#10182F']}
+       style={styles.container}
+>
       {/* Linha do topo */}
       <View style={styles.topRow}>
         <Text style={styles.cityName}>📍 {mockData.city}</Text>
