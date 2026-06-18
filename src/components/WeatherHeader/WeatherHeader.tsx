@@ -1,7 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity} from 'react-native';
 import styles from './styles';
-
 
 const mockData = {
   city: 'São Paulo',
@@ -15,7 +14,20 @@ const mockData = {
 export default function WeatherHeader() {
   return (
     <View style={styles.container}>
-      <Text>WeatherHeader</Text>
+
+      {/* Linha do topo */}
+      <View style={styles.topRow}>
+        <Text style={styles.cityName}>📍 {mockData.city}</Text>
+        <View style={styles.topButtons}>
+          <TouchableOpacity style={styles.unitButton}>
+            <Text style={styles.unitButtonText}>°F</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.refreshButton}>
+            <Text style={styles.refreshText}>🔄</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+
     </View>
   );
 }
