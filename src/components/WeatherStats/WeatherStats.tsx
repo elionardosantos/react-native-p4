@@ -1,16 +1,13 @@
 import React from 'react';
 import { View, Text } from 'react-native';
+import { useWeather } from '../../context/WeatherContext';
 import styles from './styles';
 
-const mockStats = {
-  humidity: 66,
-  windSpeed: 11,
-  windDirection: 'NO',
-  uvIndex: 9,
-  visibility: 9,
-};
-
 export default function WeatherStats() {
+  const { weatherData } = useWeather();
+
+  if (!weatherData) return null;
+
   return (
     <View style={styles.container}>
 
@@ -18,11 +15,11 @@ export default function WeatherStats() {
       <View style={styles.row}>
         <View style={styles.card}>
           <Text style={styles.label}>💧 UMIDADE</Text>
-          <Text style={styles.value}>{mockStats.humidity}%</Text>
+          <Text style={styles.value}>{weatherData.humidity}%</Text>
         </View>
         <View style={styles.card}>
           <Text style={styles.label}>💨 VENTO</Text>
-          <Text style={styles.value}>{mockStats.windSpeed} km/h</Text>
+          <Text style={styles.value}>{weatherData.windSpeed} km/h</Text>
         </View>
       </View>
 
@@ -30,11 +27,11 @@ export default function WeatherStats() {
       <View style={styles.row}>
         <View style={styles.card}>
           <Text style={styles.label}>🔆 UV</Text>
-          <Text style={styles.value}>{mockStats.uvIndex}</Text>
+          <Text style={styles.value}>{weatherData.uvIndex ?? 'N/A'}</Text>
         </View>
         <View style={styles.card}>
           <Text style={styles.label}>👁 VISIBILIDADE</Text>
-          <Text style={styles.value}>{mockStats.visibility} km</Text>
+          <Text style={styles.value}>{weatherData.visibility} km</Text>
         </View>
       </View>
 
