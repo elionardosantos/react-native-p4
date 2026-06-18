@@ -1,67 +1,65 @@
 import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
-import {styles} from "./styles";
-import MaterialIcons from '@expo/vector-icons/MaterialIcons'
+import { styles } from "./styles";
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-type TabName = 'home' | 'search' | 'favorites'
+type TabConfig = {
+  label: string;
+  icon: keyof typeof MaterialIcons.glyphMap;
+  activeIcon: keyof typeof MaterialIcons.glyphMap;
+};
 
-interface Tab {
-    name: TabName
-    label: string
-    icon: string
-    activeIcon: string
-}
+const TABS_CONFIG: Record<string, TabConfig> = {
+  Home: { label: 'Início', icon: 'home', activeIcon: 'home' },
+  Search: { label: 'Buscar', icon: 'search', activeIcon: 'search' },
+  Favorites: { label: 'Favoritos', icon: 'star', activeIcon: 'star' }
+};
 
-interface BottomTabBarProps {
-    activeTab: TabName
-    onTabPress: (tab: TabName) => void
-}
+export default function BottomTabBar({ state, descriptors, navigation }: BottomTabBarProps) {
+  const insets = useSafeAreaInsets();
 
-const TABS: Tab[] = [
-    {
-        name: 'home',
-        label: 'Início',
-        icon: 'home',
-        activeIcon: 'home'
-    },
-    {
-      name: 'search',
-      label: 'Buscar',
-      icon: 'search',
-      activeIcon: 'search'
-    },
-    {
-        name: 'favorites',
-        label: 'Favoritos',
-        icon: 'star',
-        activeIcon: 'star'
-    }
-]
+  return (
+    <View style={[styles.container, { paddingBottom: insets.bottom }]}>
+      {state.routes.map((route, index) => {
+        const { options } = descriptors[route.key];
+        const isFocused = state.index === index;
 
-export default function BottomTabBar ({activeTab, onTabPress} : BottomTabBarProps) {
-    return (
-        <View style={styles.container}>
-            {TABS.map((tab) => {
-                const isActive = activeTab === tab.name
-                return (
-                    <TouchableOpacity
-                        key={tab.name}
-                        style={styles.tab}
-                        onPress={() => onTabPress(tab.name)}
-                    >
-                        <MaterialIcons
-                            // @ts-ignore
-                            name={isActive ? tab.activeIcon : tab.icon}
-                            size={24}
-                            color={isActive ? "#4F6EF7" : "#B0B8D1"}
-                        />
-                        <Text style={[styles.tabLabel, isActive && styles.tabLabelActive]}>
-                            {tab.label}
-                        </Text>
-                        {isActive && <View style={styles.activeIndicator}></View>}
-                    </TouchableOpacity>
-                )
-            })}
-        </View>
-    )
+        const tabConfig = TABS_CONFIG[route.name];
+
+        if (!tabConfig) return null;
+
+        const onPress = () => {
+          const event = navigation.emit({
+            type: 'tabPress',
+            target: route.key,
+            canPreventDefault: true,
+          });
+
+          if (!isFocused && !event.defaultPrevented) {
+            navigation.navigate(route.name);
+          }
+        };
+
+        return (
+          <TouchableOpacity
+            key={route.key}
+            style={styles.tab}
+            onPress={onPress}
+          >
+            <MaterialIcons
+              name={isFocused ? tabConfig.activeIcon : tabConfig.icon}
+              size={24}
+              color={isFocused ? "#4F6EF7" : "#B0B8D1"}
+            />
+            <Text style={[styles.tabLabel, isFocused && styles.tabLabelActive]}>
+              {tabConfig.label}
+            </Text>
+            {isFocused && <View style={styles.activeIndicator}></View>}
+          </TouchableOpacity>
+        );
+      })}
+    </View>
+  );
 }

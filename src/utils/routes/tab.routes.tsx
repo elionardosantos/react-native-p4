@@ -1,51 +1,38 @@
 import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { RootTabParamList } from '../../@types/navigation';
 
-import Home from '../../screens/Home/Home';
-import Search from '../../screens/Search/Search';
-import Favorite from '../../screens/Favorite/favorite';
+// Importe o seu componente de TabBar customizado (ajuste o caminho se necessário)
+import BottomTabBar from '../../components/BottomTabBar/bottomTabBar'; 
 
-const Tab = createBottomTabNavigator<RootTabParamList>();
+// Importe as suas telas (ajuste os caminhos se necessário)
+import HomeScreen from '../../screens/Home/Home';
+import SearchScreen from '../../screens/Search/Search';
+import FavoritesScreen from '../../screens/Favorite/Favorite';
 
-export function TabRoutes() {
+// Cria a instância do navegador de abas
+const Tab = createBottomTabNavigator();
+
+export const TabNavigator = () => {
   return (
-    <Tab.Navigator
-      screenOptions={{
-        headerShown: false,
-        tabBarActiveTintColor: '#FFFFFF',
-        tabBarInactiveTintColor: '#B0B8D1',
-        tabBarStyle: {
-          backgroundColor: '#1A1A2E',
-          borderTopWidth: 0,
-          elevation: 5,
-          shadowOpacity: 0.1,
-        },
-      }}
-    >
-      <Tab.Screen 
-        name="Home" 
-        component={Home} 
-        options={{
-          tabBarLabel: 'Início',
-        }}
-      />
-
-      <Tab.Screen 
-        name="Search" 
-        component={Search} 
-        options={{
-          tabBarLabel: 'Buscar',
-        }}
-      />
+    // O NavigationContainer DEVE ser o elemento mais externo da navegação
+    <NavigationContainer>
       
-      <Tab.Screen 
-        name="Favorite" 
-        component={Favorite} 
-        options={{
-          tabBarLabel: 'Favoritos',
+      <Tab.Navigator
+        // Injetando o seu BottomTabBar customizado aqui
+        tabBar={(props) => <BottomTabBar {...props} />}
+        
+        // Escondendo o cabeçalho padrão para você ter controle total do design
+        screenOptions={{
+          headerShown: false, 
         }}
-      />
-    </Tab.Navigator>
+      >
+        {/* Declarando as rotas e conectando com as telas */}
+        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="Search" component={SearchScreen} />
+        <Tab.Screen name="Favorites" component={FavoritesScreen} />
+      </Tab.Navigator>
+
+    </NavigationContainer>
   );
 }
