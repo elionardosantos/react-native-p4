@@ -12,7 +12,7 @@ import {styles} from "./styles";
 
 type IconName = keyof typeof MaterialIcons.glyphMap;
 
-const ICON_MAP: Record<string, IconName | undefined> = {
+const ICON_MAP: Record<string, IconName> = {
     '01d': 'sunny',
     '01n': 'mode-night',
     '02d': 'cloud',
