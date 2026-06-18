@@ -1,13 +1,10 @@
-import { StatusBar } from 'expo-status-bar';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import HomeScreen from './src/screens/HomeScreen/HomeScreen';
-
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { TabNavigator } from "./src/utils/routes/tab.routes";
 
 export default function App() {
   return (
     <SafeAreaProvider>
-      <StatusBar style="light" />
-      <HomeScreen />
+      <TabNavigator />
     </SafeAreaProvider>
   );
 }
