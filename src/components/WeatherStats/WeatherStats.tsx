@@ -19,7 +19,7 @@ export default function WeatherStats() {
         </View>
         <View style={styles.card}>
           <Text style={styles.label}>💨 VENTO</Text>
-          <Text style={styles.value}>{weatherData.windSpeed} km/h</Text>
+          <Text style={styles.value}>{Math.round(weatherData.windSpeed)} km/h</Text>
         </View>
       </View>
 

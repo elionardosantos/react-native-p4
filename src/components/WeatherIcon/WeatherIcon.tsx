@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import { WeatherCondition } from '../@types/weather';
+import { WeatherCondition } from '../../@types/weather';
 import {styles} from "./styles";
 
 // Códigos da OpenWeatherMap:
@@ -12,7 +12,7 @@ import {styles} from "./styles";
 
 type IconName = keyof typeof MaterialIcons.glyphMap;
 
-const ICON_MAP: Record<string, IconName> = {
+const ICON_MAP: Record<string, IconName | undefined> = {
     '01d': 'sunny',
     '01n': 'mode-night',
     '02d': 'cloud',
