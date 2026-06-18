@@ -17,7 +17,7 @@ export const styles = StyleSheet.create({
   },
   lupa: {
     marginRight: 8,
-    fontSize: 8,
+    fontSize: 9,
   },
   input: {
     flex: 1,
