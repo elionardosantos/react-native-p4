@@ -37,6 +37,29 @@ const styles = StyleSheet.create({
   refreshText: {
     fontSize: 16,
   },
+  centerBlock: {
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  weatherIcon: {
+    fontSize: 60,
+    marginBottom: 8,
+  },
+  temperature: {
+    fontSize: 72,
+    fontWeight: 'bold',
+    color: '#FFFFFF',
+  },
+  description: {
+    fontSize: 18,
+    color: '#FFFFFF',
+    marginTop: 4,
+  },
+  feelsLike: {
+    fontSize: 14,
+    color: '#B0B8D1',
+    marginTop: 6,
+  },
 });
 
 export default styles;

@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, TouchableOpacity} from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import styles from './styles';
 
 const mockData = {
@@ -13,8 +14,10 @@ const mockData = {
 
 export default function WeatherHeader() {
   return (
-    <View style={styles.container}>
-
+    <LinearGradient
+      colors={['#7B5EF8', '#4F6EF7']}
+      style={styles.container}
+    >
       {/* Linha do topo */}
       <View style={styles.topRow}>
         <Text style={styles.cityName}>📍 {mockData.city}</Text>
@@ -28,7 +31,16 @@ export default function WeatherHeader() {
         </View>
       </View>
 
-    </View>
+      {/* Ícone e Temperatura */}
+      <View style={styles.centerBlock}>
+        <Text style={styles.weatherIcon}>☀️</Text>
+        <Text style={styles.temperature}>{mockData.temp}°</Text>
+        <Text style={styles.description}>{mockData.description}</Text>
+        <Text style={styles.feelsLike}>
+          Sensação {mockData.feelsLike}° · {mockData.city}, {mockData.country}
+        </Text>
+      </View>
+
+    </LinearGradient>
   );
 }
-
