@@ -1,5 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import styles from './styles';
+
 
 const mockData = {
   city: 'São Paulo',
@@ -18,8 +20,3 @@ export default function WeatherHeader() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#1A1A2E',
-  },
-});
