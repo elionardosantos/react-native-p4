@@ -50,11 +50,11 @@ export default function WeatherHeader() {
       {/* Ícone e Temperatura */}
       <View style={styles.centerBlock}>
         <Text style={styles.weatherIcon}>☀️</Text>
-        <Text style={styles.temperature}>{weatherData.temperatura}°</Text>
+        <Text style={styles.temperature}>{Math.round(weatherData.temperatura)}°</Text>
         <Text style={styles.description}>{weatherData.condition.description}</Text>
         <Text style={styles.feelsLike}>
-          Sensação {weatherData.feelsLike}° · {currentCity.name}, {currentCity.country}
-        </Text>
+  Sensação {Math.round(weatherData.feelsLike)}° · {currentCity.name}, {currentCity.country}
+</Text>
       </View>
 
     </LinearGradient>
