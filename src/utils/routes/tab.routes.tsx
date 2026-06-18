@@ -6,7 +6,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import BottomTabBar from '../../components/BottomTabBar/bottomTabBar'; 
 
 // Importe as suas telas (ajuste os caminhos se necessário)
-import HomeScreen from '../../screens/Home/Home';
+import HomeScreen from '../../screens/HomeScreen/HomeScreen';
 import SearchScreen from '../../screens/Search/Search';
 import FavoritesScreen from '../../screens/Favorite/Favorite';
 
