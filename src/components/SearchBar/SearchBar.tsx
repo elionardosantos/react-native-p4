@@ -10,13 +10,13 @@ interface SearchBarProp {
   editable?: boolean;
 }
 
-const SearchBar = ({
+export default function SearchBar({
   value,
   onChangeText,
   onClear,
   placeholder = "Buscar cidade...",
   editable = true,
-}: SearchBarProp) => {
+}: SearchBarProp) {
   const hasText = value && value.length > 0;
 
   return (
@@ -34,4 +34,4 @@ const SearchBar = ({
       </View>
     </View>
   );
-};
+}
