@@ -4,8 +4,10 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#4F6EF7',
     paddingTop: 20,
-    paddingBottom: 30,
+    paddingBottom: 40,
     paddingHorizontal: 16,
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
   },
   topRow: {
     flexDirection: 'row',
