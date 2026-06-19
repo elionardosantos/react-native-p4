@@ -1,5 +1,7 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useState, useEffect } from "react";
+import { useNavigation } from "@react-navigation/native";
+import { useWeather } from "../../context/WeatherContext";
 import { FavoriteCard } from "../../components/FavoriteCard";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -24,6 +26,9 @@ const INITIAL_FAVORITES = [
 
 function Favorite() {
   const [favorites, setFavorites] = useState(INITIAL_FAVORITES);
+
+  const navigation = useNavigation<any>();
+  const { loadWeather } = useWeather();
 
   useEffect(() => {
     loadFavorites();
@@ -63,6 +68,11 @@ function Favorite() {
     }
   }
 
+  async function openFavorite(city: string) {
+    await loadWeather(city);
+    navigation.navigate("Home");
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>
@@ -70,15 +80,20 @@ function Favorite() {
       </Text>
 
       {favorites.map((item) => (
-        <FavoriteCard
+        <TouchableOpacity
           key={item.city}
-          city={item.city}
-          condition={item.condition}
-          temperature={item.temperature}
-          uvIndex={item.uvIndex}
-          icon={item.icon}
-          onRemove={() => removeFavorite(item.city)}
-        />
+          activeOpacity={0.8}
+          onPress={() => openFavorite(item.city)}
+        >
+          <FavoriteCard
+            city={item.city}
+            condition={item.condition}
+            temperature={item.temperature}
+            uvIndex={item.uvIndex}
+            icon={item.icon}
+            onRemove={() => removeFavorite(item.city)}
+          />
+        </TouchableOpacity>
       ))}
     </View>
   );
