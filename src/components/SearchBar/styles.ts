@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
   searchBox: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#F3F4F6",
+    backgroundColor: "#1A1F2E",
     borderRadius: 12,
     borderWidth: 1.5,
     borderColor: "transparent",
@@ -17,7 +17,7 @@ export const styles = StyleSheet.create({
   },
   lupa: {
     marginRight: 8,
-    fontSize: 9,
+    fontSize: 16,
   },
   input: {
     flex: 1,

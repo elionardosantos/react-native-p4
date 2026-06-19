@@ -69,11 +69,11 @@ const EmptyState = ({ query }: EmptyStateProp) => (
   </View>
 );
 
-const CityList = ({
+export default function CityList({
   searchQuery = "",
   onSelectCity,
   isLoading = false,
-}: CityListProp) => {
+}: CityListProp) {
   const filteredCities = !searchQuery.trim()
     ? PopularCities
     : PopularCities.filter((city) =>
@@ -103,4 +103,4 @@ const CityList = ({
       />
     </View>
   );
-};
+}
