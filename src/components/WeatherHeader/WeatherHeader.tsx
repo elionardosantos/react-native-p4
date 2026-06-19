@@ -1,12 +1,15 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useNavigation } from '@react-navigation/native';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { useWeather } from '../../context/WeatherContext';
 import WeatherIcon from '../WeatherIcon/WeatherIcon';
 import styles from './styles';
 
 export default function WeatherHeader() {
   const { currentCity, weatherData, unit, toggleUnit, isLoading } = useWeather();
+  const navigation = useNavigation<any>();
 
   if (isLoading) {
     return (
@@ -42,8 +45,8 @@ export default function WeatherHeader() {
               {unit === 'metric' ? '°F' : '°C'}
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.refreshButton}>
-            <Text style={styles.refreshText}>🔄</Text>
+          <TouchableOpacity style={styles.refreshButton} onPress={() => navigation.navigate('Info')}>
+            <MaterialIcons name="info-outline" size={22} color="#FFFFFF" />
           </TouchableOpacity>
         </View>
       </View>
@@ -52,7 +55,9 @@ export default function WeatherHeader() {
       <View style={styles.centerBlock}>
         <WeatherIcon condition={weatherData.condition} size={80} />
         <Text style={styles.temperature}>{Math.round(weatherData.temperatura)}°</Text>
-        <Text style={styles.description}>{weatherData.condition.description.charAt(0).toUpperCase() + weatherData.condition.description.slice(1)}</Text>
+        <Text style={styles.description}>
+          {weatherData.condition.description.charAt(0).toUpperCase() + weatherData.condition.description.slice(1)}
+        </Text>
         <Text style={styles.feelsLike}>
           Sensação {Math.round(weatherData.feelsLike)}° · {currentCity.name}, {currentCity.country}
         </Text>
