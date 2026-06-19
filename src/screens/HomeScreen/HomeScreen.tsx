@@ -10,7 +10,7 @@ export default function HomeScreen() {
   const { loadWeather } = useWeather();
 
   useEffect(() => {
-    loadWeather('Rio de Janeiro');
+    loadWeather('São Paulo');
   }, []);
 
   return (
