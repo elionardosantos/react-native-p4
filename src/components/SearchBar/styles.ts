@@ -22,7 +22,7 @@ export const styles = StyleSheet.create({
   input: {
     flex: 1,
     fontSize: 15,
-    color: "#111827",
+    color: "#ffffff",
     paddingVertical: 0,
   },
 });

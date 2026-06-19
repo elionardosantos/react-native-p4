@@ -5,6 +5,7 @@ import {
   Text,
   TouchableOpacity,
   ListRenderItem,
+  ActivityIndicator,
 } from "react-native";
 import { styles } from "./styles";
 
@@ -13,6 +14,7 @@ export interface City {
   name: string;
   country: string;
   emoji: string;
+  state?: string;
 }
 
 interface CityItemProp {
@@ -25,6 +27,7 @@ interface CityListProp {
   searchQuery?: string;
   onSelectCity: (city: City) => void;
   isLoading?: boolean;
+  apiCities?: City[];
 }
 
 interface EmptyStateProp {
@@ -55,7 +58,10 @@ const CityItem = ({ item, onPress, isLoading }: CityItemProp) => (
 
     <View style={styles.itemInfo}>
       <Text style={styles.itemName}>{item.name}</Text>
-      <Text style={styles.itemCountry}>{item.country}</Text>
+      <Text style={styles.itemCountry}>
+        {" "}
+        {item.state ? `${item.state}, ${item.country}` : item.country}
+      </Text>
     </View>
   </TouchableOpacity>
 );
@@ -73,12 +79,10 @@ export default function CityList({
   searchQuery = "",
   onSelectCity,
   isLoading = false,
+  apiCities,
 }: CityListProp) {
-  const filteredCities = !searchQuery.trim()
-    ? PopularCities
-    : PopularCities.filter((city) =>
-        city.name.toLowerCase().includes(searchQuery.trim().toLowerCase()),
-      );
+  const isSearching = searchQuery.trim().length > 0;
+  const filteredCities = isSearching ? (apiCities ?? []) : PopularCities;
 
   const renderItem: ListRenderItem<City> = ({ item }) => (
     <CityItem item={item} onPress={onSelectCity} isLoading={isLoading} />
@@ -87,20 +91,25 @@ export default function CityList({
   return (
     <View style={styles.container}>
       <Text style={styles.header}>
-        {searchQuery.trim() ? "Resultados" : "Cidades populares"}
+        {isSearching ? "Resultados" : "Cidades populares"}
       </Text>
-
-      <FlatList
-        data={filteredCities}
-        keyExtractor={(item) => item.id}
-        renderItem={renderItem}
-        ItemSeparatorComponent={Separator}
-        ListEmptyComponent={<EmptyState query={searchQuery} />}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={
-          filteredCities.length === 0 ? styles.emptyList : styles.list
-        }
-      />
+      {isLoading ? (
+        <View style={styles.emptyContainer}>
+          <ActivityIndicator />
+        </View>
+      ) : (
+        <FlatList
+          data={filteredCities}
+          keyExtractor={(item) => item.id}
+          renderItem={renderItem}
+          ItemSeparatorComponent={Separator}
+          ListEmptyComponent={<EmptyState query={searchQuery} />}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={
+            filteredCities.length === 0 ? styles.emptyList : styles.list
+          }
+        />
+      )}
     </View>
   );
 }
