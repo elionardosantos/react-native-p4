@@ -24,7 +24,7 @@ export const styles = StyleSheet.create({
   item: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#ffffff",
+    backgroundColor: "#1A1F2E",
     borderRadius: 12,
     padding: 14,
   },
@@ -38,7 +38,7 @@ export const styles = StyleSheet.create({
   itemName: {
     fontSize: 15,
     fontWeight: "600",
-    color: "#111827",
+    color: "#ffffff",
   },
   itemCountry: {
     fontSize: 12,

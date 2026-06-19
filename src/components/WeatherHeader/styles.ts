@@ -27,10 +27,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 4,
     borderRadius: 12,
+    justifyContent: 'center',
   },
   unitButtonText: {
     color: '#FFFFFF',
-    fontSize: 13,
+    fontSize: 13, 
   },
   refreshButton: {
     padding: 4,

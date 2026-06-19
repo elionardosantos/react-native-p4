@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import { WeatherCondition } from '../@types/weather';
+import { WeatherCondition } from '../../@types/weather';
 import {styles} from "./styles";
 
 // Códigos da OpenWeatherMap:
