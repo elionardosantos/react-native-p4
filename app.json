@@ -1,14 +1,14 @@
 {
   "expo": {
-    "name": "react-native-p4",
-    "slug": "react-native-p4",
+    "name": "WeatherApp",
+    "slug": "weather-app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/WeatherApp.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/splash-icon.png",
+      "image": "./assets/SplashScreen.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -17,7 +17,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/WeatherApp.png",
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
