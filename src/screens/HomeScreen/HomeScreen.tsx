@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import WeatherHeader from '../../components/WeatherHeader/WeatherHeader';
 import WeatherStats from '../../components/WeatherStats/WeatherStats';
 import { HourlyForecast } from '../../components/HourlyForecast/HourlyForecast';
+import { WeeklyForecast } from '../../components/WeeklyForecast/WeeklyForecast';
 import { useWeather } from '../../context/WeatherContext';
 import styles from './styles';
 
@@ -19,7 +20,8 @@ export default function HomeScreen() {
       <ScrollView style={styles.container}>
         <WeatherHeader />
         <WeatherStats />
-        <HourlyForecast />        
+        <HourlyForecast />
+        <WeeklyForecast />        
       </ScrollView>
     </SafeAreaView>
   );
