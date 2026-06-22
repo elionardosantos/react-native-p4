@@ -1,6 +1,15 @@
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { useState, useEffect } from "react";
-import { useNavigation } from "@react-navigation/native";
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  FlatList,
+} from "react-native";
+import {
+  useNavigation,
+  useFocusEffect,
+} from "@react-navigation/native";
 import { useWeather } from "../../context/WeatherContext";
 import { FavoriteCard } from "../../components/FavoriteCard";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -30,9 +39,11 @@ function Favorite() {
   const navigation = useNavigation<any>();
   const { loadWeather } = useWeather();
 
-  useEffect(() => {
-    loadFavorites();
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      loadFavorites();
+    }, [])
+  );
 
   async function loadFavorites() {
     try {
@@ -79,22 +90,34 @@ function Favorite() {
         Favoritos
       </Text>
 
-      {favorites.map((item) => (
-        <TouchableOpacity
-          key={item.city}
-          activeOpacity={0.8}
-          onPress={() => openFavorite(item.city)}
-        >
-          <FavoriteCard
-            city={item.city}
-            condition={item.condition}
-            temperature={item.temperature}
-            uvIndex={item.uvIndex}
-            icon={item.icon}
-            onRemove={() => removeFavorite(item.city)}
-          />
-        </TouchableOpacity>
-      ))}
+    <Text style={{ color: "#FFF", marginBottom: 10 }}>
+        Favoritos carregados: {favorites.length}
+    </Text>
+
+      <FlatList
+  style={{ flex: 1 }}
+  data={favorites}
+  keyExtractor={(item) => item.city}
+  showsVerticalScrollIndicator={true}
+  contentContainerStyle={{
+    paddingBottom: 300,
+  }}
+  renderItem={({ item }) => (
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => openFavorite(item.city)}
+          >
+            <FavoriteCard
+              city={item.city}
+              condition={item.condition}
+              temperature={item.temperature}
+              uvIndex={item.uvIndex}
+              icon={item.icon}
+              onRemove={() => removeFavorite(item.city)}
+            />
+          </TouchableOpacity>
+        )}
+      />
     </View>
   );
 }
