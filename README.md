@@ -1,342 +1,217 @@
-# Divisão de Tarefas — App de Previsão do Tempo
+# 🌤️ WeatherApp
 
-**Curso:** Programador Fullstack  
-**Tecnologia:** React Native  
-**Integrantes:** 7
+Aplicativo mobile de previsão do tempo desenvolvido em React Native como projeto integrador do curso de Programador Fullstack — SerraTec / Universidade Veiga de Almeida.
 
 ---
 
-## Elionardo — Setup & Navegação
+## 👥 Time
 
-> Estrutura base do projeto
-
-- Criar o projeto React Native e instalar dependências (React Navigation, Axios, AsyncStorage)
-- Configurar Stack Navigator entre telas
-- Configurar Tab Navigator (Início, Buscar, Favoritos)
-- Criar arquivo de rotas e estrutura de pastas do projeto
-
-**Requisitos cobertos:** 2 tipos de navegação
-
----
-
-## Caio Vinícius Dias — API & Contexto
-
-> Camada de dados e estado global
-
-- Criar serviço de requisição à API de clima (ex: OpenWeatherMap)
-- Criar `WeatherContext` com Provider e hook `useWeather`
-- Salvar cidade atual e dados do clima no contexto
-- Documentar como usar o contexto nas outras telas
-
-**Requisitos cobertos:** Requisição à API · Context API
-
----
-
-## Gabriel Botelho — Tela Inicial (Parte 1)
-
-> Cabeçalho e dados principais
-
-- Componente `WeatherHeader`: cidade, temperatura, ícone e descrição
-- Componente `WeatherStats`: cards de Umidade, Vento, UV e Visibilidade
-- Estilizar com CSS puro seguindo o layout do mockup (fundo escuro)
-- Conectar ao contexto para exibir dados reais
-
-**Requisitos cobertos:** Componentizar · CSS puro
-
----
-
-## Bernardo da Silva — Tela Inicial (Parte 2)
-
-> Previsões e cidades rápidas
-
-- Componente `HourlyForecast`: scroll horizontal com hora, ícone e temperatura
-- Componente `WeeklyForecast`: lista dos próximos 7 dias com mín/máx e barra
-- Componente `QuickCities`: chips clicáveis de cidades rápidas
-- Estilizar com CSS puro e integrar ao contexto
-
-**Requisitos cobertos:** Componentizar · CSS puro
-
----
-
-## Marcelo Mayrinck — Tela de Busca
-
-> Pesquisa de cidades
-
-- Componente `SearchBar`: input de texto com ícone e estilo
-- Componente `CityList`: lista de cidades populares e resultados de busca
-- Fazer requisição à API ao selecionar uma cidade e atualizar o contexto
-- Navegar para a tela inicial ao selecionar uma cidade
-
-**Requisitos cobertos:** Requisição à API · Componentizar
-
----
-
-## Valois — Tela de Favoritos
-
-> Persistência de cidades favoritas
-
-- Componente `FavoriteCard`: card com cidade, condição e temperatura
-- Salvar e ler lista de favoritos no AsyncStorage
-- Botão "+ Adicionar" e botão de remover (lixeira) em cada card
-- Buscar dados atuais de cada favorito via API ao abrir a tela
-
-**Requisitos cobertos:** AsyncStorage · Requisição à API
-
----
-
-## Wallace Ildefonso — Componentes Globais & Integração Final
-
-> Partes compartilhadas por todo o app
-
-- Componente `BottomTabBar`: barra de navegação inferior customizada
-- Componente `WeatherIcon`: ícone reutilizável que mapeia condições climáticas
-- Testar integração de todas as telas e corrigir conflitos de estilo
-- Criar README com instruções de instalação e chave da API
-
-**Requisitos cobertos:** Componentizar · CSS puro · Integração geral
-
----
-
-## Requisitos do trabalho
-
-| Requisito | Responsável |
+| Integrante | Responsabilidade |
 |---|---|
-| CSS puro | Gabriel, Bernardo, Marcelo, Valois, Wallace |
-| 2 tipos de navegação | Elionardo |
-| Componentizar | Gabriel, Bernardo, Marcelo, Valois, Wallace |
-| Requisição à API | Caio, Marcelo, Valois |
-| Context API | Caio (cria) · Gabriel, Bernardo, Marcelo (consomem) |
-| AsyncStorage | Valois |
+| Elionardo | Setup & Navegação |
+| Caio Vinicius Dias | API & Contexto |
+| Gabriel Botelho | Tela Inicial — Parte 1 |
+| Bernardo da Silva | Tela Inicial — Parte 2 |
+| Marcelo Mayrinck | Tela de Busca |
+| Valois | Tela de Favoritos |
+| Wallace Ildefonso | Componentes Globais & Integração |
 
 ---
 
-## Ordem sugerida de desenvolvimento
+## 📱 Sobre o Projeto
 
-1. **Elionardo** — setup e navegação (base para todos)
-2. **Caio** — API e contexto (dependência das telas)
-3. **Gabriel, Bernardo, Marcelo, Valois** — telas em paralelo
-4. **Wallace** — integração final e componentes globais
+O WeatherApp permite consultar condições climáticas em tempo real de qualquer cidade do mundo, salvar cidades favoritas e navegar por previsões horárias e semanais com uma interface moderna e intuitiva.
 
+Os dados meteorológicos são fornecidos pela [OpenWeatherMap API](https://openweathermap.org/api) (plano gratuito — 60 chamadas/minuto), com suporte a descrições em português.
 
 ---
 
-# CONTEXT_GUIDE.md — Como consumir o WeatherContext
+## ✨ Funcionalidades
 
-Este guia explica como qualquer componente ou tela do WeatherApp deve consumir
-os dados de clima, sem precisar conhecer a API da OpenWeatherMap nem a lógica
-interna do `weatherService`.
+**Tela Inicial**
+- Temperatura atual, sensação térmica e condição do céu
+- Cards de estatísticas: umidade, vento, índice UV e visibilidade
+- Previsão horária (scroll horizontal, mínimo 8 intervalos)
+- Previsão dos próximos 7 dias com barras de temperatura
+- Chips de cidades rápidas: São Paulo, Rio de Janeiro, Curitiba, Salvador, Manaus
+
+**Tela de Busca**
+- Campo de texto com filtragem em tempo real
+- Lista de 10 cidades brasileiras populares exibida por padrão
+- Feedback de carregamento e mensagem de erro amigável
+
+**Tela de Favoritos**
+- Lista de cidades salvas com temperatura e condição atual
+- Dados atualizados automaticamente ao abrir a tela
+- Adicionar e remover favoritos com persistência local (AsyncStorage)
 
 ---
 
-## 1. Visão geral
+## 🚀 Como Rodar o Projeto
 
-Todo o estado climático do app vive em um único lugar: o `WeatherContext`
-(`src/context/WeatherContext.tsx`). Qualquer tela ou componente acessa esses
-dados através do hook `useWeather()` — nunca importando o `weatherService`
-diretamente.
+### Pré-requisitos
 
-```tsx
-import { useWeather } from '../context/WeatherContext';
+- [Node.js](https://nodejs.org/) 18+
+- [Expo CLI](https://docs.expo.dev/get-started/installation/)
+- Conta na [OpenWeatherMap](https://openweathermap.org/) para obter a chave de API (gratuita)
 
-function MeuComponente() {
-  const { weatherData, isLoading, error } = useWeather();
-  // ...
-}
+### Instalação
+
+```bash
+# Clone o repositório
+git clone https://github.com/seu-usuario/weather-app.git
+cd weather-app
+
+# Instale as dependências
+npm install
 ```
 
-**Regra de ouro:** se o seu componente está dentro da árvore envolvida pelo
-`<WeatherProvider>` (ver seção 2), `useWeather()` sempre funciona. Se você
-esquecer de envolver, o hook lança um erro explicativo no console — não falha
-silenciosamente.
+### Configuração da chave de API
 
----
+Crie um arquivo `.env` na raiz do projeto com o seguinte conteúdo:
 
-## 2. Onde o Provider precisa estar
-
-O `<WeatherProvider>` precisa envolver toda a árvore de navegação, no
-`App.tsx`:
-
-```tsx
-<WeatherProvider>
-  <NavigationContainer>
-    {/* Stack / Tab Navigator aqui */}
-  </NavigationContainer>
-</WeatherProvider>
+```
+WEATHER_API_KEY=sua_chave_aqui
 ```
 
-Isso é responsabilidade conjunta de Elionardo (setup/navegação) e Caio
-(contexto) — confirmem juntos que está plugado antes de cada um seguir com
-suas telas.
+> ⚠️ **Importante:** nunca commite o arquivo `.env`. Ele já está listado no `.gitignore`.
+
+### Executando
+
+```bash
+npx expo start
+```
+
+Abra o app no dispositivo físico pelo app **Expo Go** (Android/iOS) ou em um emulador.
 
 ---
 
-## 3. O que `useWeather()` retorna
+## 🗂️ Estrutura de Pastas
 
-| Campo | Tipo | Descrição |
+```
+weather-app/
+├── src/
+│   ├── components/       # Componentes reutilizáveis
+│   ├── screens/          # Telas da aplicação
+│   ├── context/          # WeatherContext (estado global)
+│   ├── services/         # Serviço de requisição à API
+│   ├── navigation/       # Configuração de rotas
+│   ├── hooks/            # Hooks customizados
+│   ├── utils/            # Funções utilitárias
+│   └── constants/        # Cores, tamanhos e outras constantes
+├── .env                  # Chave de API (não versionar)
+├── .env.example          # Modelo do arquivo .env
+└── App.js                # Ponto de entrada
+```
+
+---
+
+## 🧩 Componentes
+
+| Componente | Responsável | Descrição |
 |---|---|---|
-| `currentCity` | `CurrentCity \| null` | Cidade selecionada (nome, país, lat, lon). `null` até a primeira busca. |
-| `weatherData` | `WeatherData \| null` | Clima atual completo. `null` até a primeira busca. |
-| `hourlyForecast` | `HourlyForecastItem[]` | Previsão em blocos de 3h (~5 dias). Array vazio até a primeira busca. |
-| `weeklyForecast` | `DailyForecastItem[]` | Previsão diária agrupada (ver seção 5 sobre limitação). Array vazio até a primeira busca. |
-| `isLoading` | `boolean` | `true` enquanto qualquer requisição está em andamento. |
-| `error` | `string \| null` | Mensagem amigável de erro, ou `null` se não há erro. |
-| `unit` | `'metric' \| 'imperial'` | Unidade atual (Celsius/Fahrenheit). |
-| `loadWeather(city)` | `(city: string) => Promise<void>` | Busca clima + previsões de uma cidade. Ver seção 4. |
-| `toggleUnit()` | `() => void` | Alterna Celsius/Fahrenheit e recarrega os dados da cidade atual. |
-
-Todos os tipos (`CurrentCity`, `WeatherData`, etc.) estão em
-`src/@types/weather.ts` — sempre importe de lá em vez de recriar interfaces.
-
----
-
-## 4. Como disparar uma busca (SearchScreen, QuickCities)
-
-```tsx
-const { loadWeather } = useWeather();
-
-// formato esperado: "NomeDaCidade,CodigoPais"
-await loadWeather('Sao Paulo,BR');
-await loadWeather('Curitiba,BR');
-```
-
-Depois de chamar, `isLoading` vira `true` automaticamente, e quando a
-requisição termina (sucesso ou erro), `weatherData`/`error` são atualizados.
-Você não precisa controlar loading manualmente — só ler `isLoading` do
-contexto.
-
-**Padrão recomendado de tela:**
-
-```tsx
-function SearchScreen() {
-  const { loadWeather, isLoading, error } = useWeather();
-  const navigation = useNavigation();
-
-  async function handleSelectCity(city: string) {
-    await loadWeather(city);
-    navigation.navigate('Home');
-  }
-
-  // renderiza isLoading e error normalmente
-}
-```
+| `WeatherHeader` | Gabriel Botelho | Cidade, temperatura, ícone e descrição do clima |
+| `WeatherStats` | Gabriel Botelho | Grid 2x2 com cards de umidade, vento, UV e visibilidade |
+| `HourlyForecast` | Bernardo da Silva | ScrollView horizontal com previsões horárias |
+| `WeeklyForecast` | Bernardo da Silva | Lista de 7 dias com barras de temperatura |
+| `QuickCities` | Bernardo da Silva | Chips de cidades rápidas com scroll horizontal |
+| `SearchBar` | Marcelo Mayrinck | Input de texto com ícone de busca e botão limpar |
+| `CityList` | Marcelo Mayrinck | FlatList com filtragem em tempo real |
+| `FavoriteCard` | Valois | Card de favorito com dados climáticos e botão remover |
+| `BottomTabBar` | Wallace Ildefonso | Barra de navegação inferior customizada |
+| `WeatherIcon` | Wallace Ildefonso | Ícone reutilizável mapeado por condição climática |
+| `LoadingSpinner` | Wallace Ildefonso | Indicador de carregamento global |
 
 ---
 
-## 5. ⚠️ Limitação importante: "previsão semanal" tem ~5 dias, não 7
+## 🗺️ Navegação
 
-O PRD original (seção 3.1.4) pede previsão de 7 dias usando o endpoint
-`/onecall`. Esse endpoint hoje faz parte do **"One Call API 3.0"**, que exige
-cartão de crédito cadastrado na conta da OpenWeatherMap mesmo no tier
-gratuito.
+O app usa duas estratégias de navegação com React Navigation v6:
 
-Para não travar o projeto nessa exigência, `weeklyForecast` é construído
-agrupando os blocos de 3h do endpoint gratuito `/forecast` por dia. Isso
-cobre, na prática, **5 dias** (limite do plano gratuito do `/forecast`), não 7.
-
-**Impacto prático:** se o componente `WeeklyForecast` (Bernardo) renderizar
-uma lista fixa esperando 7 itens, vai sobrar espaço vazio ou quebrar o layout.
-Renderize dinamicamente com `weeklyForecast.map(...)`, sem assumir um número
-fixo de dias.
-
-Se o time decidir que os 7 dias são obrigatórios para a nota, a alternativa é
-cadastrar um cartão de crédito (sem custo dentro da cota gratuita) na conta da
-OpenWeatherMap usada pelo projeto — converse com o professor/coordenador antes
-de pedir isso a algum integrante.
+- **Stack Navigator** — transições entre a Tela Inicial e telas de detalhe (animação de deslizamento horizontal)
+- **Tab Navigator** — navegação principal entre as três abas: Início, Buscar e Favoritos
 
 ---
 
-## 6. Tratamento de erros — o que `error` pode conter
+## 🌐 API
 
-`error` já vem traduzido para mensagens amigáveis (seção 7.3 do PRD). Os
-valores possíveis hoje são:
+Base URL: `https://api.openweathermap.org/data/2.5`
 
-| Situação | Mensagem em `error` |
+| Endpoint | Método | Uso |
+|---|---|---|
+| `/weather` | GET | Dados climáticos atuais |
+| `/forecast` | GET | Previsão horária (intervalos de 3h) |
+| `/onecall` | GET | Previsão diária dos próximos 7 dias |
+
+Parâmetros comuns: `q` (cidade), `appid` (chave da API), `units=metric`, `lang=pt_br`.
+
+### Tratamento de erros
+
+| Código | Mensagem exibida |
 |---|---|
-| API key inválida (HTTP 401) | "Chave de API inválida. Verifique a configuração do app." |
-| Cidade não encontrada (HTTP 404) | "Cidade não encontrada." |
-| Timeout (>10s sem resposta) | "Sem conexão. Verifique sua internet." |
-| Qualquer outro erro | "Ocorreu um erro inesperado. Tente novamente." |
-
-Nenhuma tela precisa interpretar códigos HTTP ou objetos de erro do axios —
-só exibir a string de `error` quando ela não for `null`.
+| 401 | Alerta de configuração (chave inválida) |
+| 404 | "Cidade não encontrada" |
+| Timeout (>10s) | "Sem conexão. Verifique sua internet" |
 
 ---
 
-## 7. Para o Wallace — `WeatherCondition` e o `WeatherIcon`
+## 📦 Dependências
 
-O componente `WeatherIcon` precisa mapear a condição climática para um ícone
-visual. Essa informação chega sempre no mesmo formato, em três lugares:
-
-```typescript
-export interface WeatherCondition {
-  main: string;        // categoria, ex: "Clear", "Rain"
-  description: string; // descrição em português, ex: "Céu Limpo"
-  icon: string;         // código de ícone da OpenWeatherMap, ex: "01d"
-}
-```
-
-- `weatherData.condition` → condição atual
-- `hourlyForecast[i].condition` → condição de cada horário
-- `weeklyForecast[i].condition` → condição representativa do dia
-
-**Duas estratégias possíveis (decisão do Wallace, alinhar com o time):**
-
-**Opção A — usar `icon` direto com os ícones oficiais da OpenWeatherMap:**
-```
-https://openweathermap.org/img/wn/{icon}@2x.png
-```
-Simples e rápido, mas visual não combina com a paleta dark/roxa do app
-(seção 8 do PRD).
-
-**Opção B — mapear `main` para ícones do `@expo/vector-icons` (já é
-dependência do projeto):**
-```typescript
-const conditionIconMap: Record<string, string> = {
-  Clear: 'sunny-outline',
-  Clouds: 'cloud-outline',
-  Rain: 'rainy-outline',
-  Drizzle: 'rainy-outline',
-  Thunderstorm: 'thunderstorm-outline',
-  Snow: 'snow-outline',
-  Mist: 'cloud-outline',
-  Fog: 'cloud-outline',
-  Haze: 'cloud-outline',
-};
-```
-Recomendado, porque mantém consistência visual com o resto do app — mas exige
-cobrir todas as categorias (`main`) que a OpenWeatherMap pode retornar; a
-lista acima cobre os grupos principais documentados pela API.
-
-`WeatherIcon` deve receber a `condition` (ou só `condition.main`) como prop e
-devolver o ícone certo, sendo reutilizado em `WeatherHeader`, `HourlyForecast`
-e `WeeklyForecast`.
+| Pacote | Versão | Finalidade |
+|---|---|---|
+| `react-native` | 0.73+ | Framework principal |
+| `expo` | 50+ | Toolchain e ambiente de desenvolvimento |
+| `@react-navigation/native` | 6.x | Núcleo de navegação |
+| `@react-navigation/stack` | 6.x | Stack Navigator |
+| `@react-navigation/bottom-tabs` | 6.x | Tab Navigator |
+| `axios` | 1.x | Requisições HTTP |
+| `@react-native-async-storage/async-storage` | 1.x | Persistência local de favoritos |
+| `react-native-dotenv` | 3.x | Variáveis de ambiente |
+| `@expo/vector-icons` | 14.x | Ícones de clima e navegação |
 
 ---
 
-## 8. Resumo rápido para quem só quer copiar e colar
+## 🎨 Design
 
-```tsx
-import { useWeather } from '../context/WeatherContext';
+**Paleta de cores**
 
-function MinhaTela() {
-  const {
-    weatherData,
-    currentCity,
-    hourlyForecast,
-    weeklyForecast,
-    isLoading,
-    error,
-    unit,
-    loadWeather,
-    toggleUnit,
-  } = useWeather();
+| Token | Hex | Uso |
+|---|---|---|
+| `background-primary` | `#1A1A2E` | Fundo principal |
+| `background-card` | `#242444` | Fundo dos cards |
+| `accent-blue` | `#4F6EF7` | Destaque, chips selecionados |
+| `accent-purple` | `#7B5EF8` | Gradiente do cabeçalho |
+| `text-primary` | `#FFFFFF` | Temperatura e títulos |
+| `text-secondary` | `#B0B8D1` | Labels e textos de suporte |
+| `danger` | `#FF4757` | Botão de remover favorito |
 
-  if (isLoading) return <LoadingSpinner />;
-  if (error) return <ErrorMessage message={error} />;
-  if (!weatherData) return null; // ainda não buscou nenhuma cidade
+**Tipografia:** fonte padrão do sistema (SF Pro no iOS, Roboto no Android). Temperatura principal em 72px bold.
 
-  return (
-    // seu JSX usando weatherData, currentCity, etc.
-  );
-}
-```
+> Todos os estilos são feitos com `StyleSheet.create()` — sem bibliotecas de UI externas.
+
+---
+
+## ✅ Critérios de Aceitação
+
+| Critério | Como verificar |
+|---|---|
+| App inicia sem erros | `expo start` e abrir no dispositivo |
+| Navegação Stack funciona | Verificar animação ao navegar entre telas |
+| Navegação Tab funciona | Tocar em cada aba |
+| Dados da API são exibidos | Selecionar cidade e verificar temperatura |
+| Contexto compartilha dados entre telas | Mudar cidade na busca e verificar HomeScreen |
+| Favoritos persistem após fechar o app | Adicionar favorito, fechar e reabrir |
+| CSS puro em todos os componentes | Revisar código e confirmar ausência de libs de UI |
+| Componentes são reutilizáveis | `WeatherIcon` e `LoadingSpinner` usados em múltiplas telas |
+| Erros de API tratados com mensagem | Buscar cidade inexistente |
+
+---
+
+## 📋 Compatibilidade
+
+- Android 8.0+
+- iOS 13+
+
+---
+
+*WeatherApp v1.0 — Junho de 2025*

@@ -38,7 +38,7 @@ export default function WeatherHeader() {
     >
       {/* Linha do topo */}
       <View style={styles.topRow}>
-        <Text style={styles.cityName}>📍 {currentCity.name}</Text>
+        <Text style={styles.cityName}><img src="" alt="" />{currentCity.name}</Text>
         <View style={styles.topButtons}>
           <TouchableOpacity style={styles.unitButton} onPress={toggleUnit}>
             <Text style={styles.unitButtonText}>
