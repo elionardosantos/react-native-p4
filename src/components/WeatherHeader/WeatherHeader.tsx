@@ -82,8 +82,7 @@ export default function WeatherHeader() {
       style={styles.container}
     >
       <View style={styles.topRow}>
-        <Text style={styles.cityName}>📍 {currentCity.name}</Text>
-
+        <Text style={styles.cityName}><img src="" alt="" />{currentCity.name}</Text>
         <View style={styles.topButtons}>
           <TouchableOpacity style={styles.unitButton} onPress={toggleUnit}>
             <Text style={styles.unitButtonText}>
