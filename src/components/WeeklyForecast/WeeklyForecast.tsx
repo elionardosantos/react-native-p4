@@ -41,7 +41,7 @@ const getWeatherIcon = (iconCode: string) => {
 export function WeeklyForecast() {
   const { weeklyForecast } = useWeather();
 
-  const forecastToRender = weeklyForecast?.slice(1, 6) || [];
+  const forecastToRender = weeklyForecast?.slice(0, 6) || [];
 
   if (forecastToRender.length === 0) return null;
 

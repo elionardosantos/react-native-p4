@@ -15,7 +15,6 @@ export default function HomeScreen() {
   useEffect(() => {
     loadWeather('Greenland');
   }, []);
-
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView style={styles.container}>
